@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin:0;
+    background:black;
+    color:#00ff00;
+    font-family:monospace;
+    overflow:hidden;
+}
+
+#schermo {
+    padding:20px;
+    font-size:18px;
+}
+
+#avviso {
+    display:none;
+    position:absolute;
+    top:30%;
+    width:100%;
+    text-align:center;
+    color:red;
+    font-size:35px;
+    font-weight:bold;
+    animation: lampeggio .4s infinite;
+}
+
+@keyframes lampeggio {
+    50% {opacity:.2;}
+}
+
+button {
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:15px;
+    font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="schermo"></div>
+
+<div id="avviso">
+📱 IL TUO TELEFONO È HACKERATO<br><br>
+🤣
+</div>
+
+<button onclick="inizia()">IL TUO TELEFONO NON FUNZIONERA' PIU' CLICCA E VAI AVANTI
+
+</button>
+
+
+<script>
+
+let righe=[
+"Connessione al server...",
+"Accesso memoria telefono...",
+"Analisi foto...",
+"Copia contatti...",
+"Download dati segreti...",
+"Sblocco fotocamera...",
+"Invio informazioni..."
+];
+
+function inizia(){
+
+document.querySelector("button").style.display="none";
+
+let s=document.getElementById("schermo");
+let i=0;
+
+let timer=setInterval(()=>{
+
+let codice=Math.random().toString(16).substring(2,12);
+
+s.innerHTML += righe[i]+" <b>"+codice+"</b><br>";
+
+i++;
+
+if(i>=righe.length){
+
+clearInterval(timer);
+
+setTimeout(()=>{
+
+document.getElementById("avviso").style.display="block";
+
+let voce=new SpeechSynthesisUtterance("Poveretto  , sei stato hackerato");
+
+voce.lang="it-IT";
+
+speechSynthesis.speak(voce);
+
+
+setTimeout(()=>{
+
+document.getElementById("avviso").innerHTML=
+"😂<br><br>IL TELEFONO NON È SICURO 😎";
+
+document.getElementById("avviso").style.color="lime";
+
+},4000);
+
+
+},1000);
+
+}
+
+},700);
+
+}
+
+</script>
+
+</body>
+</html>
